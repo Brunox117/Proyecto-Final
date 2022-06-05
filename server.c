@@ -29,7 +29,12 @@ void serve(int s) {
     while( fgets(buffer, MSGSIZE, sin) != NULL ) {
         if(i == 1){
             int size = sizeof(buffer)/sizeof(int);
-            printf("EL tamaño del buffer es de %d caracteres",size);
+            int ix;
+            while (ix<size){
+                printf("El buffer es: \n");
+                printf("%s",buffer[ix]);
+                ix++;
+            }
         }
         scanf("ESPACIO");
         printf("%d - [%s]\n", ++i, buffer);
