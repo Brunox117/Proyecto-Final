@@ -42,7 +42,7 @@ void serve(int s) {
     sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
     fputs(buffer, sout);
 
-    sprintf(buffer, "Content-Type: text/html; charset=utf-8\r\n");
+    sprintf(buffer, "application/xhtml+xml\r\n");
     fputs(buffer, sout);
 
     stat(FILE_TO_SEND, &buf);
