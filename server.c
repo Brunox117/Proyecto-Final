@@ -14,7 +14,7 @@
 #define PORT 8000
 #define SIZE 8
 #define MSGSIZE 1024
-#define FILE_TO_SEND "logo-tec.png"
+#define FILE_TO_SEND "index.html"
 
 
 void serve(int s) {
