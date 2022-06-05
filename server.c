@@ -32,7 +32,7 @@ void serve(int s) {
             int ix;
             while (ix<size){
                 printf("El buffer es: \n");
-                printf("%s",(char)(buffer[ix]));
+                printf(buffer[ix]);
                 ix++;
             }
         }
