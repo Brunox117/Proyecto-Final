@@ -31,9 +31,8 @@ void serve(int s) {
             int size = sizeof(buffer)/sizeof(int);
             int ix;
             while (ix<size){
-                printf("El buffer es: \n");
-                printf(buffer[ix]);
-                ix++;
+                printf("%s\n",buffer[ix]);
+                ix = ix+1;
             }
         }
         scanf("ESPACIO");
