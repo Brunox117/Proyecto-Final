@@ -14,7 +14,7 @@
 #define PORT 8000
 #define SIZE 8
 #define MSGSIZE 1024
-#define FILE_TO_SEND "index.html"
+#define FILE_TO_SEND "logo-tec.png"
 
 
 void serve(int s) {
@@ -87,7 +87,7 @@ int main() {
     addrlen = sizeof(pin);
     // 4. Esperar conexion
     while( (sdo = accept(sd, (struct sockaddr *)  &pin, &addrlen)) > 0) {
-        //if(!fork()) {
+        if(!fork()) {
             printf("Connected from %s\n", inet_ntoa(pin.sin_addr));
             printf("Port %d\n", ntohs(pin.sin_port));
 
@@ -95,7 +95,7 @@ int main() {
 
             close(sdo);
             exit(0);
-        //}
+        }
     }
     close(sd);
 
