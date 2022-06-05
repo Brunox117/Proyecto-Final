@@ -28,7 +28,7 @@ void serve(int s) {
     // Reads the request from the client
     while( fgets(buffer, MSGSIZE, sin) != NULL ) {
         if(i == 1){
-            int size = sizeof(buffer)/sizeof(int);
+            int size = sizeof(buffer)/sizeof(char *);
             int ix;
             while (ix<size){
                 printf("%s\n",buffer[ix]);
