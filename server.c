@@ -27,8 +27,12 @@ void serve(int s) {
 
     // Reads the request from the client
     while( fgets(buffer, MSGSIZE, sin) != NULL ) {
-        printf("%d - [%s]\n", ++i, buffer);
+        if(i == 1){
+            int size = sizeof(buffer)/sizeof(int);
+            printf("EL tamaño del buffer es de %d caracteres",size);
+        }
         scanf("ESPACIO");
+        printf("%d - [%s]\n", ++i, buffer);
         // A blank line is found -> end of headers
         if(buffer[0] == '\r' && buffer[1] == '\n') {
             break;
