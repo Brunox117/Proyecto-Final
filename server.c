@@ -27,8 +27,8 @@ void serve(int s) {
 
     // Reads the request from the client
     while( fgets(buffer, MSGSIZE, sin) != NULL ) {
-        printf("INFO DEL BUFFER SEGUN EL MENSAJE RECIBIDO");
         printf("%d - [%s]\n", ++i, buffer);
+        scanf("ESPACIO");
         // A blank line is found -> end of headers
         if(buffer[0] == '\r' && buffer[1] == '\n') {
             break;
@@ -43,7 +43,7 @@ void serve(int s) {
     sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
     fputs(buffer, sout);
 
-    sprintf(buffer, "application/xhtml+xml\r\n");
+    sprintf(buffer, "image/png\r\n");
     fputs(buffer, sout);
 
     stat(FILE_TO_SEND, &buf);
