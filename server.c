@@ -32,6 +32,7 @@ void serve(int s) {
         token = strtok(buffer,espacio);
         while(token != NULL){
             printf("STRINGS DENTRO DEL HEADER %s\n",token);
+            scanf("PARAAA");
             token = strtok(NULL,espacio);
         }}
         if(buffer[0] == '\r' && buffer[1] == '\n') {
