@@ -37,7 +37,7 @@ void serve(int s) {
         token = strtok(buffer,espacio);
         while(token != NULL){
             if(indice==2){
-                strcpy(rutaAMandar,token);
+                strcpy(rutaAMandar,token+1);
                 printf("LA RUTA A MANDAR ES: %s\n",rutaAMandar);
                 
             }
@@ -72,7 +72,7 @@ void serve(int s) {
     sprintf(buffer, "image/png\r\n");
     fputs(buffer, sout); 
     }
-    rutaAMandar++;
+
     stat(rutaAMandar, &buf);
     printf("Size -----------> %d\n", (int)buf.st_size);
 
