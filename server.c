@@ -19,7 +19,7 @@ void serve(int s) {
     char buffer[MSGSIZE];
     int size, i=0;
     struct stat buf;
-    const char s[2] = " ";
+    const char espacio[2] = " ";
     char *token;
     FILE *sin = fdopen(s, "r");
     FILE *sout = fdopen(s, "w");
@@ -29,10 +29,10 @@ void serve(int s) {
         printf("%d - [%s]\n", ++i, buffer);
         // A blank line is found -> end of headers
         if(i==1){
-        token = strtok(buffer,s);
+        token = strtok(buffer,espacio);
         while(token != NULL){
             printf("STRINGS DENTRO DEL HEADER %s\n",token);
-            token = strtok(NULL,s);
+            token = strtok(NULL,espacio);
         }}
         if(buffer[0] == '\r' && buffer[1] == '\n') {
             break;
