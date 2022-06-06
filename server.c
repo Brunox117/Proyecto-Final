@@ -72,6 +72,7 @@ void serve(int s) {
     sprintf(buffer, "image/png\r\n");
     fputs(buffer, sout); 
     }
+    rutaAMandar++;
     stat(rutaAMandar, &buf);
     printf("Size -----------> %d\n", (int)buf.st_size);
 
