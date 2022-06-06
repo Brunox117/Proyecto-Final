@@ -24,6 +24,7 @@ void serve(int s) {
     char *token;
     char *token2;
     char rutaAMandar[100];
+    char rutaAMandar2[100];
     char tipoDeArchivo[100];
     FILE *sin = fdopen(s, "r");
     FILE *sout = fdopen(s, "w");
@@ -38,6 +39,7 @@ void serve(int s) {
         while(token != NULL){
             if(indice==2){
                 strcpy(rutaAMandar,token+1);
+                strcpy(rutaAMandar2,token+1);
                 printf("LA RUTA A MANDAR ES: %s\n",rutaAMandar);
                 
             }
@@ -64,10 +66,10 @@ void serve(int s) {
     sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
     fputs(buffer, sout);
     if(tipoDeArchivo == "html"){
-    sprintf(buffer, "text/html\r\n");
+    sprintf("Content-type: %s", "text/html\r\n");
     fputs(buffer, sout);
     }else if(tipoDeArchivo == "png"){
-    sprintf(buffer, "image/png\r\n");
+    sprintf("Content-type: %s", "image/png\r\n");
     fputs(buffer, sout); 
     }
 
@@ -80,7 +82,7 @@ void serve(int s) {
     sprintf(buffer, "\r\n");
     fputs(buffer, sout);
 
-    FILE *fin = fopen(FILE_TO_SEND, "r");
+    FILE *fin = fopen(rutaAMandar2, "r");
     while ( (size = fread(buffer, 1, MSGSIZE, fin)) != 0) {
         size = fwrite(buffer, 1, size, sout);
     }
@@ -113,7 +115,7 @@ int main() {
     addrlen = sizeof(pin);
     // 4. Esperar conexion
     while( (sdo = accept(sd, (struct sockaddr *)  &pin, &addrlen)) > 0) {
-        //if(!fork()) {
+        if(!fork()) {
             printf("Connected from %s\n", inet_ntoa(pin.sin_addr));
             printf("Port %d\n", ntohs(pin.sin_port));
 
@@ -121,7 +123,7 @@ int main() {
 
             close(sdo);
             exit(0);
-        //}
+        }
     }
     close(sd);
 
