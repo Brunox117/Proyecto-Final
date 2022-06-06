@@ -6,7 +6,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <stdlib.h>
-
+#include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -19,7 +19,8 @@ void serve(int s) {
     char buffer[MSGSIZE];
     int size, i=0;
     struct stat buf;
-
+    const char s[2] = " ";
+    char *token;
     FILE *sin = fdopen(s, "r");
     FILE *sout = fdopen(s, "w");
 
@@ -27,6 +28,12 @@ void serve(int s) {
     while( fgets(buffer, MSGSIZE, sin) != NULL ) {
         printf("%d - [%s]\n", ++i, buffer);
         // A blank line is found -> end of headers
+        if(i==1){
+        token = strtok(str,s);
+        while(token != NULL){
+            printf("STRINGS DENTRO DEL HEADER %s\n",token);
+            token = strtok(NULL,s);
+        }}
         if(buffer[0] == '\r' && buffer[1] == '\n') {
             break;
         }
@@ -40,7 +47,7 @@ void serve(int s) {
     sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
     fputs(buffer, sout);
 
-    sprintf(buffer, "application/xhtml+xml\r\n");
+    sprintf(buffer, "text/html\r\n");
     fputs(buffer, sout);
 
     stat(FILE_TO_SEND, &buf);
