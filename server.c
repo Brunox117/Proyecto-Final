@@ -44,7 +44,7 @@ void serve(int s) {
             indice++;
             token = strtok(NULL,espacio);
         }
-        token2 = strtok(rutaAMandar,token2);
+        token2 = strtok(rutaAMandar,punto);
         while (token2!=NULL)
         {
             strcpy(tipoDeArchivo,token2);
