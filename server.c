@@ -29,7 +29,7 @@ void serve(int s) {
         printf("%d - [%s]\n", ++i, buffer);
         // A blank line is found -> end of headers
         if(i==1){
-        token = strtok(str,s);
+        token = strtok(buffer,s);
         while(token != NULL){
             printf("STRINGS DENTRO DEL HEADER %s\n",token);
             token = strtok(NULL,s);
