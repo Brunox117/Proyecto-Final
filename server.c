@@ -20,8 +20,11 @@ void serve(int s) {
     int size, i=0;
     struct stat buf;
     const char espacio[2] = " ";
+    const char punto[2] = ".";
     char *token;
+    char *token2;
     char rutaAMandar[100];
+    char tipoDeArchivo[100];
     FILE *sin = fdopen(s, "r");
     FILE *sout = fdopen(s, "w");
 
@@ -31,17 +34,25 @@ void serve(int s) {
         // A blank line is found -> end of headers
         if(i==1){
         int indice=1;
-        
         token = strtok(buffer,espacio);
         while(token != NULL){
             if(indice==2){
                 strcpy(rutaAMandar,token);
-                printf("LA RUTA A MANDAR ES: %s",rutaAMandar);
-                scanf("RUTAAA");
+                printf("LA RUTA A MANDAR ES: %s\n",rutaAMandar);
+                
             }
             indice++;
             token = strtok(NULL,espacio);
-        }}
+        }
+        token2 = strtok(rutaAMandar,token2);
+        while (token2!=NULL)
+        {
+            strcpy(tipoDeArchivo,token2);
+            token2 = strtok(NULL,punto);
+        }
+        printf("EL TIPO DE ARCHIVO ES: %s\n",tipoDeArchivo);
+        scanf("RUTAAA");
+        }
         if(buffer[0] == '\r' && buffer[1] == '\n') {
             break;
         }
