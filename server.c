@@ -65,10 +65,13 @@ void serve(int s) {
 
     sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
     fputs(buffer, sout);
-
+    if(tipoDeArchivo == "html"){
     sprintf(buffer, "text/html\r\n");
     fputs(buffer, sout);
-
+    }else if(tipoDeArchivo == "png"){
+    sprintf(buffer, "image/png\r\n");
+    fputs(buffer, sout); 
+    }
     stat(rutaAMandar, &buf);
     printf("Size -----------> %d\n", (int)buf.st_size);
 
