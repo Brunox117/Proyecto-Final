@@ -113,7 +113,7 @@ int main() {
     addrlen = sizeof(pin);
     // 4. Esperar conexion
     while( (sdo = accept(sd, (struct sockaddr *)  &pin, &addrlen)) > 0) {
-        if(!fork()) {
+        //if(!fork()) {
             printf("Connected from %s\n", inet_ntoa(pin.sin_addr));
             printf("Port %d\n", ntohs(pin.sin_port));
 
@@ -121,7 +121,7 @@ int main() {
 
             close(sdo);
             exit(0);
-        }
+        //}
     }
     close(sd);
 
