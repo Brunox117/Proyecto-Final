@@ -28,6 +28,7 @@ void serve(int s) {
     char tipoDeArchivo[100];
     FILE *sin = fdopen(s, "r");
     FILE *sout = fdopen(s, "w");
+    int status;
 
     // Reads the request from the client
     while( fgets(buffer, MSGSIZE, sin) != NULL ) {
@@ -72,8 +73,8 @@ void serve(int s) {
     sprintf("Content-type: %s", "image/png\r\n");
     fputs(buffer, sout); 
     }
-
-    stat(rutaAMandar, &buf);
+    
+    stat(rutaAMandar2, &buf);
     printf("Size -----------> %d\n", (int)buf.st_size);
 
     sprintf(buffer, "Content-Length: %d\r\n", (int)buf.st_size);
