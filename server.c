@@ -29,10 +29,16 @@ void serve(int s) {
         printf("%d - [%s]\n", ++i, buffer);
         // A blank line is found -> end of headers
         if(i==1){
+        int espacio=1;
+        char getP[100];
         token = strtok(buffer,espacio);
         while(token != NULL){
             printf("STRINGS DENTRO DEL HEADER %s\n",token);
-            scanf("PARAAA");
+            if(i==2){
+                strcpy(getP,token);
+                printf("LA RUTA A MANDAR ES: %s",token);
+                scanf("RUTAAA");
+            }
             token = strtok(NULL,espacio);
         }}
         if(buffer[0] == '\r' && buffer[1] == '\n') {
