@@ -21,6 +21,7 @@ void serve(int s) {
     struct stat buf;
     const char espacio[2] = " ";
     char *token;
+    char rutaAMandar[100];
     FILE *sin = fdopen(s, "r");
     FILE *sout = fdopen(s, "w");
 
@@ -30,13 +31,12 @@ void serve(int s) {
         // A blank line is found -> end of headers
         if(i==1){
         int indice=1;
-        char getP[100];
+        
         token = strtok(buffer,espacio);
         while(token != NULL){
-            printf("STRINGS DENTRO DEL HEADER %s\n",token);
             if(indice==2){
-                strcpy(getP,token);
-                printf("LA RUTA A MANDAR ES: %s",token);
+                strcpy(rutaAMandar,token);
+                printf("LA RUTA A MANDAR ES: %s",rutaAMandar);
                 scanf("RUTAAA");
             }
             indice++;
@@ -58,7 +58,7 @@ void serve(int s) {
     sprintf(buffer, "text/html\r\n");
     fputs(buffer, sout);
 
-    stat(FILE_TO_SEND, &buf);
+    stat(rutaAMandar, &buf);
     printf("Size -----------> %d\n", (int)buf.st_size);
 
     sprintf(buffer, "Content-Length: %d\r\n", (int)buf.st_size);
