@@ -51,13 +51,11 @@ void serve(int s) {
             token2 = strtok(NULL,punto);
         }
         printf("EL TIPO DE ARCHIVO ES: %s\n",tipoDeArchivo);
-        scanf("RUTAAA");
         }
         if(buffer[0] == '\r' && buffer[1] == '\n') {
             break;
         }
     }
-    sleep(1);
 
     // Builds response
     sprintf(buffer, "HTTP/1.0 200 OK\r\n");
