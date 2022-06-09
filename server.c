@@ -15,6 +15,9 @@
 #define SIZE 8
 #define MSGSIZE 1024
 #define FILE_TO_SEND "index.html"
+void listarArchivos(){
+    printf("Hablando desde la funcion de listar archivos");
+}
 void serve(int s) {
     char buffer[MSGSIZE];
     int size, i=0;
@@ -44,6 +47,7 @@ void serve(int s) {
                 printf("LA RUTA A MANDAR ES: %s\n",rutaAMandar);
                 if(rutaAMandar == "listado.txt"){
                     printf("Imprimimos el listado de archivos+++");
+
                 }
             }
             indice++;
