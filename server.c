@@ -42,8 +42,8 @@ void serve(int s) {
                 strcpy(rutaAMandar,token+1);
                 strcpy(rutaAMandar2,token+1);
                 printf("LA RUTA A MANDAR ES: %s\n",rutaAMandar);
-                if(rutaAMandar == "/"){
-                    strcpy(rutaAMandar,"listado.txt");
+                if(rutaAMandar == "listado.txt"){
+                    printf("Imprimimos el listado de archivos+++");
                 }
             }
             indice++;
