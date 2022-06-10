@@ -35,8 +35,8 @@ void listarArchivos(){
             fprintf(fp, "%s\n", de->d_name);
     }
     fclose(fp);
-	closedir(dr);	
-    return 0;
+	closedir(dr);
+    fflush(0);	
 }
 void serve(int s) {
     char buffer[MSGSIZE];
