@@ -36,7 +36,7 @@ void listarArchivos(){
     }
     fclose(fp);
 	closedir(dr);
-    fflush(0);	
+    return 0;	
 }
 void serve(int s) {
     char buffer[MSGSIZE];
@@ -67,6 +67,7 @@ void serve(int s) {
                 printf("LA RUTA A MANDAR ES: %s\n",rutaAMandar);
                 if(rutaAMandar == "listado.txt"){
                     printf("Imprimimos el listado de archivos+++");
+                    listarArchivos()
                 }
             }
             indice++;
