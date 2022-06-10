@@ -47,7 +47,6 @@ void serve(int s) {
                 printf("LA RUTA A MANDAR ES: %s\n",rutaAMandar);
                 if(rutaAMandar == "listado.txt"){
                     printf("Imprimimos el listado de archivos+++");
-
                 }
             }
             indice++;
