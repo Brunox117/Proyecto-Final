@@ -47,7 +47,8 @@ void serve(int s)
                     strcpy(rutaAMandar, token + 1);
                     strcpy(rutaAMandar2, token + 1);
                     printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
-                    if (rutaAMandar == "listado.txt")
+                    //LISTAR LOS ARCHIVOS
+                    if (strcmp(rutaAMandar,"listado.txt")==0)
                     {
                         char *filename = "listado.txt";
                         FILE *fp = fopen(filename, "w");
@@ -71,6 +72,7 @@ void serve(int s)
                         fclose(fp);
                         closedir(dr);
                     }
+                    //LISTAR LOS ARCHIVOS
                 }
                 indice++;
                 token = strtok(NULL, espacio);
