@@ -36,6 +36,7 @@ void listarArchivos(){
     }
     fclose(fp);
 	closedir(dr);	
+    return 0;
 }
 void serve(int s) {
     char buffer[MSGSIZE];
