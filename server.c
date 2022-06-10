@@ -9,7 +9,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
+#include <dirent.h>
 
 #define PORT 8000
 #define SIZE 8
