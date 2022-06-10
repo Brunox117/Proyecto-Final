@@ -68,6 +68,7 @@ void serve(int s) {
                 if(rutaAMandar == "listado.txt"){
                     printf("Imprimimos el listado de archivos+++");
                     listarArchivos();
+                    int x = scanf("ENTRANDO A LA FUNCION\n");
                 }
             }
             indice++;
