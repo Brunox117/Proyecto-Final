@@ -3,22 +3,25 @@
 
 int main(void)
 {
-	struct dirent *de; // Pointer for directory entry
-
-	// opendir() returns a pointer of DIR type.
-	DIR *dr = opendir(".");
-
-	if (dr == NULL) // opendir returns NULL if couldn't open directory
+	char *filename = "listado.txt";
+	FILE *fp = fopen(filename, "w");
+	if (fp == NULL)
 	{
-		printf("Could not open current directory" );
+		printf("Error opening the file %s", filename);
+		return -1;
+	}
+	struct dirent *de;
+	DIR *dr = opendir(".");
+	if (dr == NULL)
+	{
+		printf("Error opening the file %s", filename);
+		printf("Could not open current directory");
 		return 0;
 	}
-
-	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html
-	// for readdir()
 	while ((de = readdir(dr)) != NULL)
-			printf("%s\n", de->d_name);
-
-	closedir(dr);	
-	return 0;
+	{
+		fprintf(fp, "%s\n", de->d_name);
+	}
+	fclose(fp);
+	closedir(dr);
 }
