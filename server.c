@@ -15,31 +15,6 @@
 #define SIZE 8
 #define MSGSIZE 1024
 #define FILE_TO_SEND "index.html"
-void writeFiles()
-{
-    char *filename = "listado.txt";
-    FILE *fp = fopen(filename, "w");
-    if (fp == NULL)
-    {
-        printf("Error opening the file %s", filename);
-        return -1;
-    }
-    struct dirent *de;
-    DIR *dr = opendir(".");
-    if (dr == NULL)
-    {
-        printf("Error opening the file %s", filename);
-        printf("Could not open current directory");
-        return 0;
-    }
-    while ((de = readdir(dr)) != NULL)
-    {
-        fprintf(fp, "%s\n", de->d_name);
-    }
-    fclose(fp);
-    closedir(dr);
-    return 0;
-}
 void serve(int s)
 {
     char buffer[MSGSIZE];
@@ -69,81 +44,91 @@ void serve(int s)
             {
                 if (indice == 2)
                 {
-                    /*if (strcmp(token, "/") == 0)
-                    {
-                        rutaAMandar = "listado.txt";
-                        rutaAMandar2 = "listado.txt";
-                        writeFiles();
-                    }
-                    else
-                    {*/
                     strcpy(rutaAMandar, token + 1);
                     strcpy(rutaAMandar2, token + 1);
                     printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
-                    // LISTAR LOS ARCHIVOS
-                    if (strcmp(rutaAMandar, "listado.txt") == 0)
+                    //LISTAR LOS ARCHIVOS
+                    if (strcmp(rutaAMandar,"listado.txt")==0)
                     {
-                        writeFiles();
+                        char *filename = "listado.txt";
+                        FILE *fp = fopen(filename, "w");
+                        if (fp == NULL)
+                        {
+                            printf("Error opening the file %s", filename);
+                            return -1;
+                        }
+                        struct dirent *de;
+                        DIR *dr = opendir(".");
+                        if (dr == NULL)
+                        {
+                            printf("Error opening the file %s", filename);
+                            printf("Could not open current directory");
+                            return 0;
+                        }
+                        while ((de = readdir(dr)) != NULL)
+                        {
+                            fprintf(fp, "%s\n", de->d_name);
+                        }
+                        fclose(fp);
+                        closedir(dr);
                     }
-                    // LISTAR LOS ARCHIVOS
-                    //}
+                    //LISTAR LOS ARCHIVOS
                 }
+                indice++;
+                token = strtok(NULL, espacio);
             }
-            indice++;
-            token = strtok(NULL, espacio);
+            token2 = strtok(rutaAMandar, punto);
+            while (token2 != NULL)
+            {
+                strcpy(tipoDeArchivo, token2);
+                token2 = strtok(NULL, punto);
+            }
+            printf("EL TIPO DE ARCHIVO ES: %s\n", tipoDeArchivo);
         }
-        token2 = strtok(rutaAMandar, punto);
-        while (token2 != NULL)
+        if (buffer[0] == '\r' && buffer[1] == '\n')
         {
-            strcpy(tipoDeArchivo, token2);
-            token2 = strtok(NULL, punto);
+            break;
         }
-        printf("EL TIPO DE ARCHIVO ES: %s\n", tipoDeArchivo);
     }
-    if (buffer[0] == '\r' && buffer[1] == '\n')
+
+    // Builds response
+    sprintf(buffer, "HTTP/1.0 200 OK\r\n");
+    fputs(buffer, sout);
+
+    sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
+    fputs(buffer, sout);
+    if (tipoDeArchivo == "html")
     {
-        break;
+        sprintf("Content-type: %s", "text/html\r\n");
+        fputs(buffer, sout);
     }
-}
+    else if (tipoDeArchivo == "png")
+    {
+        sprintf("Content-type: %s", "image/png\r\n");
+        fputs(buffer, sout);
+    }
+    else if (tipoDeArchivo == "txt")
+    {
+        sprintf("Content-type: %s", "text/plain\r\n");
+        fputs(buffer, sout);
+    }
 
-// Builds response
-sprintf(buffer, "HTTP/1.0 200 OK\r\n");
-fputs(buffer, sout);
+    stat(rutaAMandar2, &buf);
+    printf("Size -----------> %d\n", (int)buf.st_size);
 
-sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
-fputs(buffer, sout);
-if (tipoDeArchivo == "html")
-{
-    sprintf("Content-type: %s", "text/html\r\n");
+    sprintf(buffer, "Content-Length: %d\r\n", (int)buf.st_size);
     fputs(buffer, sout);
-}
-else if (tipoDeArchivo == "png")
-{
-    sprintf("Content-type: %s", "image/png\r\n");
+
+    sprintf(buffer, "\r\n");
     fputs(buffer, sout);
-}
-else if (tipoDeArchivo == "txt")
-{
-    sprintf("Content-type: %s", "text/plain\r\n");
-    fputs(buffer, sout);
-}
 
-stat(rutaAMandar2, &buf);
-printf("Size -----------> %d\n", (int)buf.st_size);
+    FILE *fin = fopen(rutaAMandar2, "r");
+    while ((size = fread(buffer, 1, MSGSIZE, fin)) != 0)
+    {
+        size = fwrite(buffer, 1, size, sout);
+    }
 
-sprintf(buffer, "Content-Length: %d\r\n", (int)buf.st_size);
-fputs(buffer, sout);
-
-sprintf(buffer, "\r\n");
-fputs(buffer, sout);
-
-FILE *fin = fopen(rutaAMandar2, "r");
-while ((size = fread(buffer, 1, MSGSIZE, fin)) != 0)
-{
-    size = fwrite(buffer, 1, size, sout);
-}
-
-fflush(0);
+    fflush(0);
 }
 
 int main()
