@@ -68,15 +68,24 @@ void serve(int s)
             {
                 if (indice == 2)
                 {
-                    strcpy(rutaAMandar, token + 1);
-                    strcpy(rutaAMandar2, token + 1);
-                    printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
-                    // LISTAR LOS ARCHIVOS
-                    if (strcmp(rutaAMandar, "listado.txt") == 0)
+                    if (strcmp(strcpy(rutaAMandar, token), "/") == 0)
                     {
+                        rutaAMandar = "listado.txt";
+                        rutaAMandar2 = "listado.txt";
                         escribirListado();
                     }
-                    // LISTAR LOS ARCHIVOS
+                    else
+                    {
+                        strcpy(rutaAMandar, token + 1);
+                        strcpy(rutaAMandar2, token + 1);
+                        printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
+                        // LISTAR LOS ARCHIVOS
+                        if (strcmp(rutaAMandar, "listado.txt") == 0)
+                        {
+                            escribirListado();
+                        }
+                        // LISTAR LOS ARCHIVOS
+                    }
                 }
                 indice++;
                 token = strtok(NULL, espacio);
