@@ -74,7 +74,7 @@ void serve(int s)
                     // LISTAR LOS ARCHIVOS
                     if (strcmp(rutaAMandar, "listado.txt") == 0)
                     {
-                        escribirListado()
+                        escribirListado();
                     }
                     // LISTAR LOS ARCHIVOS
                 }
