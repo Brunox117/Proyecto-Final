@@ -69,6 +69,15 @@ void serve(int s)
             {
                 if (indice == 2)
                 {
+                    if (strcmp(token, "/") == 0)
+                    {
+                        strcpy(rutaAMandar, "listado.txt");
+                        strcpy(rutaAMandar2, "listado.txt");
+                        writeFiles();
+                    }
+                }
+                else
+                {
                     strcpy(rutaAMandar, token + 1);
                     strcpy(rutaAMandar2, token + 1);
                     printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
@@ -79,61 +88,62 @@ void serve(int s)
                     }
                     // LISTAR LOS ARCHIVOS
                 }
-                indice++;
-                token = strtok(NULL, espacio);
             }
-            token2 = strtok(rutaAMandar, punto);
-            while (token2 != NULL)
-            {
-                strcpy(tipoDeArchivo, token2);
-                token2 = strtok(NULL, punto);
-            }
-            printf("EL TIPO DE ARCHIVO ES: %s\n", tipoDeArchivo);
+            indice++;
+            token = strtok(NULL, espacio);
         }
-        if (buffer[0] == '\r' && buffer[1] == '\n')
+        token2 = strtok(rutaAMandar, punto);
+        while (token2 != NULL)
         {
-            break;
+            strcpy(tipoDeArchivo, token2);
+            token2 = strtok(NULL, punto);
         }
+        printf("EL TIPO DE ARCHIVO ES: %s\n", tipoDeArchivo);
     }
-
-    // Builds response
-    sprintf(buffer, "HTTP/1.0 200 OK\r\n");
-    fputs(buffer, sout);
-
-    sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
-    fputs(buffer, sout);
-    if (tipoDeArchivo == "html")
+    if (buffer[0] == '\r' && buffer[1] == '\n')
     {
-        sprintf("Content-type: %s", "text/html\r\n");
-        fputs(buffer, sout);
+        break;
     }
-    else if (tipoDeArchivo == "png")
-    {
-        sprintf("Content-type: %s", "image/png\r\n");
-        fputs(buffer, sout);
-    }
-    else if (tipoDeArchivo == "txt")
-    {
-        sprintf("Content-type: %s", "text/plain\r\n");
-        fputs(buffer, sout);
-    }
+}
 
-    stat(rutaAMandar2, &buf);
-    printf("Size -----------> %d\n", (int)buf.st_size);
+// Builds response
+sprintf(buffer, "HTTP/1.0 200 OK\r\n");
+fputs(buffer, sout);
 
-    sprintf(buffer, "Content-Length: %d\r\n", (int)buf.st_size);
+sprintf(buffer, "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
+fputs(buffer, sout);
+if (tipoDeArchivo == "html")
+{
+    sprintf("Content-type: %s", "text/html\r\n");
     fputs(buffer, sout);
-
-    sprintf(buffer, "\r\n");
+}
+else if (tipoDeArchivo == "png")
+{
+    sprintf("Content-type: %s", "image/png\r\n");
     fputs(buffer, sout);
+}
+else if (tipoDeArchivo == "txt")
+{
+    sprintf("Content-type: %s", "text/plain\r\n");
+    fputs(buffer, sout);
+}
 
-    FILE *fin = fopen(rutaAMandar2, "r");
-    while ((size = fread(buffer, 1, MSGSIZE, fin)) != 0)
-    {
-        size = fwrite(buffer, 1, size, sout);
-    }
+stat(rutaAMandar2, &buf);
+printf("Size -----------> %d\n", (int)buf.st_size);
 
-    fflush(0);
+sprintf(buffer, "Content-Length: %d\r\n", (int)buf.st_size);
+fputs(buffer, sout);
+
+sprintf(buffer, "\r\n");
+fputs(buffer, sout);
+
+FILE *fin = fopen(rutaAMandar2, "r");
+while ((size = fread(buffer, 1, MSGSIZE, fin)) != 0)
+{
+    size = fwrite(buffer, 1, size, sout);
+}
+
+fflush(0);
 }
 
 int main()
