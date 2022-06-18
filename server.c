@@ -32,12 +32,14 @@ void escribirListado()
         printf("Could not open current directory");
         return 0;
     }
+    fprintf(fp, "La lista de archivos es: \n");
     while ((de = readdir(dr)) != NULL)
     {
         fprintf(fp, "%s\n", de->d_name);
     }
     fclose(fp);
     closedir(dr);
+    return 0;
 }
 void serve(int s)
 {
