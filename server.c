@@ -50,7 +50,7 @@ void serve(int s)
                     //LISTAR LOS ARCHIVOS
                     if (strcmp(rutaAMandar,"listado.txt")==0)
                     {
-                        char *filename = "listado.txt";blank
+                        char *filename = "listado.txt";
                         FILE *fp = fopen(filename, "w");
                         if (fp == NULL)
                         {
