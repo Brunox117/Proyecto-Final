@@ -1,5 +1,5 @@
 CFLAGS=-g
-ALL=server client 
+ALL=client 
 
 ALL:${ALL}
 
