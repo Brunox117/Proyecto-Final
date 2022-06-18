@@ -15,6 +15,30 @@
 #define SIZE 8
 #define MSGSIZE 1024
 #define FILE_TO_SEND "index.html"
+void writeFiles()
+{
+    char *filename = "listado.txt";
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL)
+    {
+        printf("Error opening the file %s", filename);
+        return -1;
+    }
+    struct dirent *de;
+    DIR *dr = opendir(".");
+    if (dr == NULL)
+    {
+        printf("Error opening the file %s", filename);
+        printf("Could not open current directory");
+        return 0;
+    }
+    while ((de = readdir(dr)) != NULL)
+    {
+        fprintf(fp, "%s\n", de->d_name);
+    }
+    fclose(fp);
+    closedir(dr);
+}
 void serve(int s)
 {
     char buffer[MSGSIZE];
@@ -47,32 +71,12 @@ void serve(int s)
                     strcpy(rutaAMandar, token + 1);
                     strcpy(rutaAMandar2, token + 1);
                     printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
-                    //LISTAR LOS ARCHIVOS
-                    if (strcmp(rutaAMandar,"listado.txt")==0)
+                    // LISTAR LOS ARCHIVOS
+                    if (strcmp(rutaAMandar, "listado.txt") == 0)
                     {
-                        char *filename = "listado.txt";
-                        FILE *fp = fopen(filename, "w");
-                        if (fp == NULL)
-                        {
-                            printf("Error opening the file %s", filename);
-                            return -1;
-                        }
-                        struct dirent *de;
-                        DIR *dr = opendir(".");
-                        if (dr == NULL)
-                        {
-                            printf("Error opening the file %s", filename);
-                            printf("Could not open current directory");
-                            return 0;
-                        }
-                        while ((de = readdir(dr)) != NULL)
-                        {
-                            fprintf(fp, "%s\n", de->d_name);
-                        }
-                        fclose(fp);
-                        closedir(dr);
+                        writeFiles();
                     }
-                    //LISTAR LOS ARCHIVOS
+                    // LISTAR LOS ARCHIVOS
                 }
                 indice++;
                 token = strtok(NULL, espacio);
