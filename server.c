@@ -69,14 +69,14 @@ void serve(int s)
             {
                 if (indice == 2)
                 {
-                    if (strcmp(token, "/") == 0)
+                    /*if (strcmp(token, "/") == 0)
                     {
                         rutaAMandar = "listado.txt";
                         rutaAMandar2 = "listado.txt";
                         writeFiles();
                     }
                     else
-                {
+                    {*/
                     strcpy(rutaAMandar, token + 1);
                     strcpy(rutaAMandar2, token + 1);
                     printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
@@ -86,7 +86,7 @@ void serve(int s)
                         writeFiles();
                     }
                     // LISTAR LOS ARCHIVOS
-                }
+                    //}
                 }
             }
             indice++;
