@@ -17,7 +17,8 @@
 #define FILE_TO_SEND "index.html"
 void escribirListado()
 {
-    char *filename = "file.html";
+    char file[100];
+    char *filename = "files.html";
     FILE *fp = fopen(filename, "w");
     if (fp == NULL)
     {
@@ -41,8 +42,14 @@ void escribirListado()
     fprintf(fp, "<header><h1> LISTA DE ARCHIVOS</h1></header>\n");
     while ((de = readdir(dr)) != NULL)
     {
+        strcpy(file, de->d_name);
+        if(strcmp(file, "server.c") == 0 || strcmp(file, "server") == 0 ){
+
+        }else
+        {
         fprintf(fp,"<h2>%s<h2>",de->d_name);
         fprintf(fp, "<a href='%s'>link</a>", de->d_name);
+        }
     }
     fprintf(fp, "</body\n");
     fprintf(fp, "</html\n");
@@ -81,8 +88,8 @@ void serve(int s)
                 {
                     if (strcmp(strcpy(rutaAMandar, token), "/") == 0)
                     {
-                        strcpy(rutaAMandar, "file.html");
-                        strcpy(rutaAMandar2, "file.html");
+                        strcpy(rutaAMandar, "files.html");
+                        strcpy(rutaAMandar2, "files.html");
                         escribirListado();
                     }
                     else
@@ -91,7 +98,7 @@ void serve(int s)
                         strcpy(rutaAMandar2, token + 1);
                         printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
                         // LISTAR LOS ARCHIVOS
-                        if (strcmp(rutaAMandar, "file.html") == 0)
+                        if (strcmp(rutaAMandar, "files.html") == 0)
                         {
                             escribirListado();
                         }
