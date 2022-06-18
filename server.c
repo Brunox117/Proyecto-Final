@@ -75,8 +75,7 @@ void serve(int s)
                         rutaAMandar2 = "listado.txt";
                         writeFiles();
                     }
-                }
-                else
+                    else
                 {
                     strcpy(rutaAMandar, token + 1);
                     strcpy(rutaAMandar2, token + 1);
@@ -87,6 +86,7 @@ void serve(int s)
                         writeFiles();
                     }
                     // LISTAR LOS ARCHIVOS
+                }
                 }
             }
             indice++;
