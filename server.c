@@ -70,8 +70,8 @@ void serve(int s)
                 {
                     if (strcmp(strcpy(rutaAMandar, token), "/") == 0)
                     {
-                        rutaAMandar = "listado.txt";
-                        rutaAMandar2 = "listado.txt";
+                        strcpy(rutaAMandar, "listado.txt");
+                        strcpy(rutaAMandar2, "listado.txt");
                         escribirListado();
                     }
                     else
