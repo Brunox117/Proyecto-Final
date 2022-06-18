@@ -41,9 +41,9 @@ void escribirListado()
     fprintf(fp, "<header><h1> LISTA DE ARCHIVOS</h1></header>\n");
     while ((de = readdir(dr)) != NULL)
     {
-        fprintf(fp,"<h2>");
-        fprintf(fp, "%s", de->d_name);
-        fprintf(fp,"</h2>\n");
+        fprintf(fp,"<a");
+        fprintf(fp, "href='%s'>%s", de->d_name,de->d_name);
+        fprintf(fp,"</a>\n");
     }
     fprintf(fp, "</body\n");
     fprintf(fp, "</html\n");
