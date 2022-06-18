@@ -17,7 +17,7 @@
 #define FILE_TO_SEND "index.html"
 void escribirListado()
 {
-    char *filename = "listado.txt";
+    char *filename = "file.html";
     FILE *fp = fopen(filename, "w");
     if (fp == NULL)
     {
@@ -32,11 +32,19 @@ void escribirListado()
         printf("Could not open current directory");
         return 0;
     }
-    fprintf(fp, "La lista de archivos es: \n");
+    fprintf(fp, "<!DOCTYPE html>\n");
+    fprintf(fp, "<html lang='en'>\n");
+    fprintf(fp, "<head>\n");
+    fprintf(fp, "<title>Listado de archivos</title>\n");
+    fprintf(fp, "</head>\n");
+    fprintf(fp, "<body\n");
+    fprintf(fp, "<header><h1> LISTA DE ARCHIVOS</h1></header>\n");
     while ((de = readdir(dr)) != NULL)
     {
         fprintf(fp, "%s\n", de->d_name);
     }
+    fprintf(fp, "</body\n");
+    fprintf(fp, "</html\n");
     fclose(fp);
     closedir(dr);
     return 0;
@@ -72,8 +80,8 @@ void serve(int s)
                 {
                     if (strcmp(strcpy(rutaAMandar, token), "/") == 0)
                     {
-                        strcpy(rutaAMandar, "listado.txt");
-                        strcpy(rutaAMandar2, "listado.txt");
+                        strcpy(rutaAMandar, "file.html");
+                        strcpy(rutaAMandar2, "file.html");
                         escribirListado();
                     }
                     else
@@ -82,7 +90,7 @@ void serve(int s)
                         strcpy(rutaAMandar2, token + 1);
                         printf("LA RUTA A MANDAR ES: %s\n", rutaAMandar);
                         // LISTAR LOS ARCHIVOS
-                        if (strcmp(rutaAMandar, "listado.txt") == 0)
+                        if (strcmp(rutaAMandar, "file.html") == 0)
                         {
                             escribirListado();
                         }
